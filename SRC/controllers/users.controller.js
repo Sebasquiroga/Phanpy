@@ -1,3 +1,6 @@
+import bcrypt from 'bcrypt';
+import pool from '../config/database.js';   
+
 export async function createUser(req, res) {
     const { username, password, rol } = req.body;
 
@@ -5,8 +8,8 @@ export async function createUser(req, res) {
         const hash = await bcrypt.hash(password, 10);
 
         const [result] = await pool.query(
-            'INSERT INTO PHANPY.users (username, password, rol) VALUES (?, ?, ?)',
-            [username, hash, rol]
+            'INSERT INTO PHANPY.users (username, password) VALUES (?, ?)',
+            [username, hash]
         );
 
         res.status(201).json({
@@ -23,3 +26,4 @@ export async function createUser(req, res) {
         });
     }
 }
+

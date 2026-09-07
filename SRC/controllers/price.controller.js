@@ -36,7 +36,7 @@ export async function updatePrice (req, res) {
     }
 }
 
-export async function getPriceByPax(roomType, pax) {
+export async function getPriceByPax(roomType, pax,) {
     const [rows] = await pool.query(
         'SELECT price_high, price_low FROM PHANPY.Price_table WHERE room_type = ? AND pax = ? ',
         [roomType, pax]

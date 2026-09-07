@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import pool from '../config/database.js';   
+import jwt from 'jsonwebtoken';
 
 export async function createUser(req, res) {
     const { username, password, rol } = req.body;
@@ -26,4 +27,62 @@ export async function createUser(req, res) {
         });
     }
 }
+
+
+
+export async function login(req, res) {
+    try {
+        const { username, password } = req.body;
+
+        const [users] = await pool.query(
+            'SELECT username, password, rol FROM PHANPY.users WHERE username = ?',
+            [username]
+        );
+
+        if (users.length === 0) {
+            return res.status(401).json({
+                message: 'Usuario no encontrado'
+            });
+        }
+
+        const user = users[0];
+
+        const valid = await bcrypt.compare(password, user.password);
+
+        if (!valid) {
+            return res.status(401).json({
+                message: 'Contraseña incorrecta'
+            });
+        }
+
+        const token = CreateToken(user);
+
+        return res.status(201).json({
+            token
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error del servidor'
+        });
+    }
+}
+
+
+function CreateToken(user) {
+
+    const token = jwt.sign(
+        {
+            username: user.username,
+            rol: user.rol
+        },
+        process.env.JWT_SECRET,
+        {
+            expiresIn: '1h'
+        }
+    );
+
+    return token;
+}
+
 

@@ -1,0 +1,32 @@
+{
+  "name": "phanpy",
+  "version": "1.0.0",
+  "description": "App calculate rate",
+  "homepage": "https://github.com/Sebasquiroga/Phanpy#readme",
+  "bugs": {
+    "url": "https://github.com/Sebasquiroga/Phanpy/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sebasquiroga/Phanpy.git"
+  },
+  "license": "ISC",
+  "author": "Sebastian",
+  "type": "module",
+  "main": "Index.js",
+  "scripts": {
+    "test": "dev",
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "bcrypt": "6.0.0",
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^17.4.2",
+    "express": "5.2.1",
+    "jsonwebtoken": "9.0.3",
+    "mysql2": "3.24.2"
+  },
+  "devDependencies": {
+    "nodemon": "3.1.14"
+  }
+}

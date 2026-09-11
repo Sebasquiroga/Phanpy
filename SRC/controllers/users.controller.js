@@ -28,8 +28,6 @@ export async function createUser(req, res) {
     }
 }
 
-
-
 export async function login(req, res) {
     try {
         const { username, password } = req.body;
@@ -41,7 +39,7 @@ export async function login(req, res) {
 
         if (users.length === 0) {
             return res.status(401).json({
-                message: 'Usuario no encontrado'
+                message: 'Usuario no autorizado'
             });
         }
 
@@ -57,7 +55,7 @@ export async function login(req, res) {
 
         const token = CreateToken(user);
 
-        return res.status(201).json({
+        return res.status(200).json({
             token
         });
 
@@ -67,7 +65,6 @@ export async function login(req, res) {
         });
     }
 }
-
 
 function CreateToken(user) {
 
